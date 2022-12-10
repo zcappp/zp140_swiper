@@ -11,8 +11,8 @@ function render({ children }) {
 }
 
 function onInit({ exc, props, container, ctx }) {
-    // exc('load(["//z.zccdn.cn/vendor/swiper_6.5.8.css", "//z.zccdn.cn/vendor/swiper_6.5.8.js"])', {}, () => {
-    exc('load(["https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css", "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"])', {}, () => {
+    exc('load(["//z.zccdn.cn/vendor/swiper-8.4.5.css", "//z.zccdn.cn/vendor/swiper-8.4.5.js"])', {}, () => {
+    // exc('load(["https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css", "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"])', {}, () => setTimeout(() => {
         let O = { on: {} }
         if (props.autoplay) O.autoplay = { delay: 3000 }
         if (props.pagingType) O.pagination = { type: props.pagingType, el: container.firstChild.lastChild }
@@ -23,17 +23,13 @@ function onInit({ exc, props, container, ctx }) {
             }
         }
         container.swiper = new Swiper(container.firstChild, O)
-    })
+    }))
 }
 
 const css = `
 .zp140 {
   position: relative;
   overflow: hidden;
-}
-
-.zp140 .swiper-container{
-  height: 100vw;
 }
 
 .zp140 .swiper-pagination-fraction {
