@@ -1,20 +1,23 @@
 import React from "react"
 
-function render({ children }) {
-    if (!Array.isArray(children) || !children.length) children = ["slide 1", "slide 2", "slide 3"].map(a => <div key={a}>{a}</div>)
+function render(ref) {
+    let c = ref.children
+    if (ref.iniChildren !== c && ref.container.swiper) setTimeout(() => ref.container.swiper.update(), 9)
+    if (!Array.isArray(c) || !c.length) c = (ref.isDev ? ["slide 1", "slide 2", "slide 3"] : []).map(a => <div key={a}>{a}</div>)
     return <div className="swiper-container">
         <div className="swiper-wrapper">
-            {children.map((a, i) => <div className="swiper-slide" key={i}>{a}</div>)}
+            {c.map((a, i) => <div className="swiper-slide" key={i}>{a}</div>)}
         </div>
         <div className="swiper-pagination"></div>
     </div>
 }
 
-function onInit({ exc, props, container, ctx }) {
-    exc('load(["//z.zccdn.cn/vendor/swiper-8.4.5.css", "//z.zccdn.cn/vendor/swiper-8.4.5.js"])', {}, () => {
-    // exc('load(["https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css", "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"])', {}, () => setTimeout(() => {
-        let O = { on: {} }
-        if (props.autoplay) O.autoplay = { delay: 3000 }
+// exc('load(["https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css", "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"])', {}, () => setTimeout(() => {
+function onInit(ref) {
+    const { exc, props, container, ctx } = ref
+    ref.iniChildren = ref.children
+    exc('load(["//z.zccdn.cn/vendor/swiper-8.4.5.css", "//z.zccdn.cn/vendor/swiper-8.4.5.js"], 200)', {}, () => {
+        let O = { on: {}, autoplay: { delay: 3000 } }
         if (props.pagingType) O.pagination = { type: props.pagingType, el: container.firstChild.lastChild }
         if (props.onSlideChange) {
             let slides = container.firstChild.firstChild.children
@@ -23,7 +26,7 @@ function onInit({ exc, props, container, ctx }) {
             }
         }
         container.swiper = new Swiper(container.firstChild, O)
-    }))
+    })
 }
 
 const css = `
@@ -32,34 +35,32 @@ const css = `
   overflow: hidden;
 }
 
-.zp140 .swiper-pagination-fraction {
-  position: absolute;
-  right: 7px;
-  bottom: 7px;
-  left: auto;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  padding: 0px 10px;
-  font-size: 10px;
-  color: white;
-  width: 20px;
-  align-items: center;
-  display: flex;
-  justify-content: center;
+.swiper-slide {
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
-.zp140 .swiper-pagination-fraction span {
-  margin: 2px;
+.zp140 .swiper-pagination-fraction {
+  position: absolute;
+  left: auto;
+  right: 10px;
+  bottom: 10px;
+  z-index: 9;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 2px;
+  font-size: 10px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  width: 45px;
 }
 `
 
 $plugin({
     id: "zp140",
     props: [{
-        prop: "autoplay",
-        type: "switch",
-        label: "自动播放"
-    }, {
         prop: "pagingType",
         type: "select",
         label: "翻页类型",
