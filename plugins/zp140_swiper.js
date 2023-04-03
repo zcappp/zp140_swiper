@@ -13,7 +13,7 @@ function render(ref) {
 }
 
 // exc('load(["https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css", "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"])', {}, () => setTimeout(() => {
-function onInit(ref) {
+function init(ref) {
     const { exc, props, container, ctx } = ref
     ref.iniChildren = ref.children
     exc('load(["//z.zccdn.cn/vendor/swiper-8.4.5.css", "//z.zccdn.cn/vendor/swiper-8.4.5.js"], 200)', {}, () => {
@@ -73,6 +73,6 @@ $plugin({
         ph: "翻页时触发的表达式"
     }],
     render,
-    onInit,
+    init,
     css
 })
