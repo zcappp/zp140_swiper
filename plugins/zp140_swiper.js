@@ -16,7 +16,7 @@ function render(ref) {
 function init(ref) {
     const { exc, props, container, ctx } = ref
     ref.iniChildren = ref.children
-    exc('load(["//z.zccdn.cn/vendor/swiper-8.4.5.css", "//z.zccdn.cn/vendor/swiper-8.4.5.js"], 200)', {}, () => {
+    exc('load(["https://z.zccdn.cn/vendor/swiper-8.4.5.css", "https://z.zccdn.cn/vendor/swiper-8.4.5.js"], 200)', {}, () => {
         let O = { on: {}, autoplay: { delay: 3000 } }
         if (props.pagingType) O.pagination = { type: props.pagingType, el: container.firstChild.lastChild }
         if (props.onSlideChange) {
