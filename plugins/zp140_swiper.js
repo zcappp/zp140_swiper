@@ -22,7 +22,7 @@ function init(ref) {
         if (props.onSlideChange) {
             let slides = container.firstChild.firstChild.children
             O.on.slideChange = o => {
-                exc(props.onSlideChange, { ...ctx, current: o.activeIndex, source: o.autoplay.running ? "autoplay" : o.touches.diff ? "touch" : "" }, () => exc("render()"))
+                exc(props.onSlideChange, { ...ctx, $el: container, current: o.activeIndex, source: o.autoplay.running ? "autoplay" : o.touches.diff ? "touch" : "" }, () => exc("render()"))
             }
         }
         container.swiper = new Swiper(container.firstChild, O)
