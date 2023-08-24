@@ -14,7 +14,7 @@ function render(ref) {
 
 // exc('load(["https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css", "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"])', {}, () => setTimeout(() => {
 function init(ref) {
-    const { exc, props, container, ctx } = ref
+    const { id, exc, props, container, ctx } = ref
     ref.iniChildren = ref.children
     exc('load(["https://z.zccdn.cn/vendor/swiper-8.4.5.css", "https://z.zccdn.cn/vendor/swiper-8.4.5.js"], 200)', {}, () => {
         let O = { on: {}, autoplay: { delay: props.delay || 3000 } }
@@ -25,7 +25,8 @@ function init(ref) {
                 exc(props.onSlideChange, { ...ctx, $el: container, current: o.activeIndex, source: o.autoplay.running ? "autoplay" : o.touches.diff ? "touch" : "" }, () => exc("render()"))
             }
         }
-        container.swiper = new Swiper(container.firstChild, O)
+        const swiper = container.swiper = new Swiper(container.firstChild, O)
+        exc('$v["swiper" + id] = swiper', { id, swiper })
     })
 }
 
