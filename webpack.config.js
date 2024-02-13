@@ -5,7 +5,7 @@ module.exports = {
     mode: process.env.mode || "development",
     devtool: false,
     entry: {
-        "zp140": "./plugins/zp140_swiper.js",
+        "zp140": "./src/zp140_swiper.js",
     },
     output: {
         path: path.join(__dirname, "build/"),
